@@ -2,8 +2,10 @@
 
 ## Requirements
 1. `npm install`
+2. `npm install axios --save`
 2. `pip install -r requirements.txt`
 3. `pip install searchtweets`
+4. `pip install -U python-dotenv`
 
 ## Setup
 1. Run `echo "DANGEROUSLY_DISABLE_HOST_CHECK=true" > .env.development.local` in the project directory
