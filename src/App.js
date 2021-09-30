@@ -1,23 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import axios from 'axios';
+
+
 
 function App() {
+  const [Userinput, setUserinput] = useState("test");
+
+  function handleSubmit(e) {
+    const userData = {username: Userinput};
+    const testval=e.target.value;
+    e.preventDefault();
+    //setUserinput(e.target.value);
+    console.log(Userinput);
+    axios.post("/Twitterapi", userData);
+  }
+
+  
+  
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form onSubmit={handleSubmit}>
+      <label>Please input username:</label>
+      <input value={Userinput} onInput={e => setUserinput(e.target.value)}/>
+      <button type="submit">Submit</button>
+    </form>
     </div>
   );
 }
