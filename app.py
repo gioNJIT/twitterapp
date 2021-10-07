@@ -4,10 +4,20 @@ import os
 import urllib.request
 import requests
 from flask import Flask, request, redirect, render_template, jsonify
+from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv, find_dotenv
+
+
 app = Flask(__name__, static_folder='./build/static')
 
 load_dotenv(find_dotenv())
+
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+import models
+
 
 @app.route('/', defaults={"filename": "index.html"})
 @app.route('/<path:filename>')

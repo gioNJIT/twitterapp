@@ -6,9 +6,16 @@
 2. `pip install -r requirements.txt`
 3. `pip install searchtweets`
 4. `pip install -U python-dotenv`
+5. `sudo yum install postgresql postgresql-server postgresql-devel postgresql-contrib postgresql-docs`
+6. `pip install psycopg2-binary`
+7. `pip install Flask-SQLAlchemy==2.1`
 
 ## Setup
 1. Run `echo "DANGEROUSLY_DISABLE_HOST_CHECK=true" > .env.development.local` in the project directory
+2. `sudo service postgresql initdb` initialize the postgresql database
+3. `sudo service postgresql start` start postgresql
+4. `sudo -u postgres createuser --superuser $USER`
+5. `sudo -u postgres createdb $USER`
 
 ## Run Application
 1. Run command in terminal (in your project directory): `python app.py`
