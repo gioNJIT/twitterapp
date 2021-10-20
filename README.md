@@ -1,5 +1,8 @@
 # Twitter topics
 
+#image of current status https://imgur.com/a/vLqnnik
+
+
 ## Requirements
 1. `npm install`
 2. `npm install axios --save`
