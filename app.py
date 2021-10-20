@@ -33,6 +33,9 @@ def twitteruser():
         #what we're getting from react page
         username = request.json['username']
         
+        if '@' in username:
+            username=username[1:]
+        
         #setting up the url and headers
         url='https://api.twitter.com/2/users/by/username/' + username
         headers = {'Authorization': "Bearer "+os.getenv('TWITTER_TOKEN') }
@@ -57,7 +60,7 @@ def twitteruser():
         micro_key=os.getenv('MICROKEY')
         endpoint='https://twitter-bot.cognitiveservices.azure.com/'
         
-        #creatiing credentials to be used when accessing microsoft API
+        #creating credentials to be used when accessing microsoft API
         ta_credential = AzureKeyCredential(micro_key)
         text_analytics_client = TextAnalyticsClient(
             endpoint=endpoint, 
@@ -67,22 +70,26 @@ def twitteruser():
         # testing out "key phrase extraction" function in the text analytics api.
         try:
             documents = [tweetdata['data'][x]['text']]
+            print(x)
 
             response = text_analytics_client.extract_key_phrases(documents = documents)[0]
-
+            
+            #creating list variable to send back to react app@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            data={'phrases':response.key_phrases}
             if not response.is_error:
                 print("\tKey Phrases:")
                 for phrase in response.key_phrases:
                     print("\t\t", phrase)
+                    
             else:
                 print(response.id, response.error)
-
+            print(type(response.key_phrases))
         except Exception as err:
             print("Encountered exception. {}".format(err))
-
         
-	
-        return('ok')
+        print(data)
+	    
+        return jsonify(data)
 
 if __name__ == "__main__":
     app.run(
